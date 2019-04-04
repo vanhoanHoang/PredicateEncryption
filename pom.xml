@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>oodrive.com.phd</groupId>
+	<artifactId>PredicateEncryption</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>PredicateEncryption</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.source.version>1.8</project.source.version>
+		<project.target.version>1.8</project.target.version>
+		<project.encoding>UTF-8</project.encoding>
+		<plugin.compiler>2.5.1</plugin.compiler>
+		<plugin.resource>2.6</plugin.resource>
+		<jpbc.version>2.0.0</jpbc.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${plugin.compiler}</version>
+				<configuration>
+					<source>${project.source.version}</source>
+					<target>${project.target.version}</target>
+					<encoding>${project.encoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${plugin.resource}</version>
+				<configuration>
+					<encoding>${project.encoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>it.unisa.dia.gas</groupId>
+			<artifactId>jpbc-api</artifactId>
+			<version>${jpbc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>it.unisa.dia.gas</groupId>
+			<artifactId>jpbc-plaf</artifactId>
+			<version>${jpbc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>thirdparty</id>
+			<name>3rd Party</name>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
+			<url>http://co-dev.oodrive.net:8081/nexus/content/repositories/thirdparty</url>
+		</repository>
+	</repositories>
+
+</project>
