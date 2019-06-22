@@ -1,6 +1,6 @@
 package oodrive.com.phd.PredicateEncryption.Sources;
 
 public class SystemConfiguration {
-	public static int IN_DEPHT = 2; 
+	public static int IN_DEPHT = 1; 
 
 }

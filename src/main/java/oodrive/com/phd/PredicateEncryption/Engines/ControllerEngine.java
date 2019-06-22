@@ -1,14 +1,8 @@
-package oodrive.com.phd.PredicateEncryption;
+package oodrive.com.phd.PredicateEncryption.Engines;
 
 import java.security.NoSuchAlgorithmException;
 
 import it.unisa.dia.gas.jpbc.Element;
-import oodrive.com.phd.PredicateEncryption.Engines.PEDecryptionEngine;
-import oodrive.com.phd.PredicateEncryption.Engines.PEEncryptionEngine;
-import oodrive.com.phd.PredicateEncryption.Engines.PEPrivateKeyGenerationEngine;
-import oodrive.com.phd.PredicateEncryption.Engines.PESystemEngine;
-import oodrive.com.phd.PredicateEncryption.Engines.PESystemKeyGenerationEngine;
-import oodrive.com.phd.PredicateEncryption.Engines.PEVectorGenerationEngine;
 import oodrive.com.phd.PredicateEncryption.Parameters.PECiphertextParameters;
 import oodrive.com.phd.PredicateEncryption.Parameters.PEKeyPairParameters;
 import oodrive.com.phd.PredicateEncryption.Parameters.PEMasterKeyParameters;
@@ -16,9 +10,13 @@ import oodrive.com.phd.PredicateEncryption.Parameters.PEPrivateKeyParameters;
 import oodrive.com.phd.PredicateEncryption.Parameters.PEPublicKeyParamaters;
 import oodrive.com.phd.PredicateEncryption.Parameters.PEVectorParamaters;
 
-public class PredicateEncryptionScheme {
+public class ControllerEngine {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {
+
+		long keygen, encrypt, decrypt;
+		long startTime, endTime;
+
 		System.out.println("\n Initializing the system....");
 		PESystemEngine systemEngine = new PESystemEngine();
 		systemEngine.systemInitializing();
@@ -35,18 +33,26 @@ public class PredicateEncryptionScheme {
 
 		PEPrivateKeyGenerationEngine privateKeyGenerationEngine = new PEPrivateKeyGenerationEngine(masterKeyParams,
 				publicKeyParams);
+
+		startTime = System.currentTimeMillis();
 		PEPrivateKeyParameters privateKeyParams = privateKeyGenerationEngine.generatePrivateKey(keyVector);
+		keygen = System.currentTimeMillis() - startTime;
 
 		// Encrypt
 		PEEncryptionEngine encryptionEngine = new PEEncryptionEngine(publicKeyParams);
 		Element encryptionData = publicKeyParams.getPairing().getGT().newRandomElement();
 		System.out.println("\n Data to encrypt:" + encryptionData);
+
+		startTime = System.currentTimeMillis();
 		PECiphertextParameters ciphertextParams = encryptionEngine.encrypt(encryptionData, encryptVector);
+		encrypt = System.currentTimeMillis() - startTime;
 
 		// Decrypt
+		startTime = System.currentTimeMillis();
 		PEDecryptionEngine decryptionEngine = new PEDecryptionEngine(publicKeyParams, privateKeyParams);
 		System.out.println("\n The data after decryption: " + decryptionEngine.decrypt(ciphertextParams));
-
+		decrypt = System.currentTimeMillis() - startTime;
+		System.out.println("\n KEYGEN: " + keygen + " ENCRYPT: " + encrypt + " DECRYPT:" + decrypt);
 	}
 
 }

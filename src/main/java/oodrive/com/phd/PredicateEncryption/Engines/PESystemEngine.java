@@ -21,7 +21,7 @@ public class PESystemEngine {
 		BigInteger p, q, r;
 		TypeA1Pairing pairing;
 
-		TypeA1CurveGenerator paramGenerator = new TypeA1CurveGenerator(new SecureRandom(), 3, 128);
+		TypeA1CurveGenerator paramGenerator = new TypeA1CurveGenerator(new SecureRandom(), 3, 517 );
 		PairingParameters pairingParam = paramGenerator.generate();
 		pairing = new TypeA1Pairing(pairingParam);
 
@@ -44,7 +44,20 @@ public class PESystemEngine {
 
 		g_r.mul(p);
 		g_r.mul(q);
-
+		
+		long startTime, endTime;
+		
+		Element ent1 = pairing.getG1().newRandomElement();
+		Element ent2 = pairing.getG2().newRandomElement();
+		Element exp = pairing.getZr().newRandomElement();
+		Element ent3 = pairing.getGT().newRandomElement();
+//		
+		startTime = System.nanoTime();
+		System.out.println("\n Before pairing: ");
+		ent1.mul(ent1);
+		
+		endTime = System.nanoTime() -startTime;
+		System.out.println("\n After pairing: "+ endTime);
 		this.systemParameters = new PESystemParameters(pairing, g, g_p, g_q, g_r, p, q, r);
 	}
 
